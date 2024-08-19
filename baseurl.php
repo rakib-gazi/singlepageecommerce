@@ -1,2 +1,2 @@
 <?php 
-$baseurl ='http://localhost/single_page_ecommerce/';
+$baseurl ='http://localhost/singlepageecommerce/';

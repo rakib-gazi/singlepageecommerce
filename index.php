@@ -12,6 +12,26 @@
     
     <script src="node_modules/preline/dist/preline.js"></script>
     <script>
+        function updateMainImage(element) {
+            let mainImage = element.closest('.relative').querySelector('.rounded-lg.shadow-lg.w-full');
+            mainImage.src = element.src;
+        }
+
+        function decreaseQuantity() {
+            let quantityInput = document.getElementById('quantity-input');
+            let currentQuantity = parseInt(quantityInput.value);
+            if (currentQuantity > 1) {
+                quantityInput.value = currentQuantity - 1;
+            }
+        }
+
+        function increaseQuantity() {
+            let quantityInput = document.getElementById('quantity-input');
+            let currentQuantity = parseInt(quantityInput.value);
+            quantityInput.value = currentQuantity + 1;
+        }
+    </script>
+    <script>
         function updateMainImage(thumbnail) {
             const mainImage = document.getElementById('main-product-image');
             mainImage.src = thumbnail.src;
