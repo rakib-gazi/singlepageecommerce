@@ -1,4 +1,7 @@
-<?php include 'baseurl.php'; ?>
+<?php 
+    session_start();
+    include 'baseurl.php'; 
+?>
 <!DOCTYPE html>
 <html lang="en">
     <?php include 'head.php'; ?>
