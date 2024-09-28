@@ -9,11 +9,14 @@ module.exports = {
       colors: {
         'custom-green': '#107914',  
       },
+      backgroundImage: {
+        
+        'form-bg': "url('images/bg.jpg')",
+      },
     },
   },
   plugins: [
     require('preline/plugin'),
-    require('daisyui'),
   ],
 }
 

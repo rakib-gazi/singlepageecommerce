@@ -1,7 +1,22 @@
 <?php 
     ob_start();
     session_start();
-    include 'baseurl.php'; 
+    include 'baseurl.php';
+    include 'function/user_auth.php';
+    if(isset($_POST['login'])){
+        $old = $_POST;
+        
+        $errors = [];
+        $result = login();
+        
+        if ($result['status'] === 'error') {  
+            $errors = $result['message'];  
+        } else {
+            
+            header('Location: dashboard/dashboard.php');
+            
+        }
+    } 
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -36,5 +51,17 @@
                 </nav>
             </section>
         </header>
+        <main style="background: url(images/bg.jpg); background-repeat:no-repeat; background-position:center; background-size:cover" class="bg-cover bg-center bg-no-repeat">
+            <div class="min-h-screen flex justify-center items-center">
+                <div class="bg-transparent shadow-xl p-24 rounded-3xl">
+                    <form method="post" class="flex flex-col gap-6">
+                        <input type="text" name="username" class=" focus:outline-none rounded-3xl shadow-lg bg-white px-6 py-4 w-96 text-gray-950" placeholder="Enter your username">
+                        <input type="password" name="password" class=" focus:outline-none rounded-3xl shadow-lg bg-white px-6 py-4 w-96 text-gray-950" placeholder="Enter your Password">
+                        <button type="submit" name="login" class="focus:outline-none rounded-3xl shadow-lg bg-cyan-950 px-6 py-4 w-96 text-white font-bold text-xl">Log In</button>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </body>
 
    <?php ob_flush();?>     
