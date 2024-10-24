@@ -86,6 +86,16 @@
                                 <option>Bhutan</option>
                             </select>
                         </div>
+                        <div>
+                            <label for="country" class="block font-semibold mb-2">Country*</label>
+                            <select id="country" x-model="billing.country" class="w-full border rounded-lg p-2">
+                                <option>Select Country</option>
+                                <option>Bangladesh</option>
+                                <option>India</option>
+                                <option>Nepal</option>
+                                <option>Bhutan</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <!-- Payment Method Section (Full Width) -->

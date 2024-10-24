@@ -9,14 +9,15 @@
         $address = $_POST['address'] ?? '';
         $city = $_POST['city'] ?? '';
         $postCode = $_POST['postCode'] ?? '';
+        $phone = $_POST['phone'] ?? '';
         $country = $_POST['country'] ?? '';
         $paymentMethod = $_POST['payment'] ?? '';
         $totalAmount = $_POST['total_amount'] ?? '0';
 		$productInfoJson = $_POST['product_info']; 
 		$productInfo = json_decode($productInfoJson, true);
 		$productInfoString = mysqli_real_escape_string($db_connect, json_encode($productInfo));
-        $sql_insert = "INSERT INTO orders(shipping,firstName, lastName, address, city,postCode,country,payment,total_amount,products ) VALUES ('$shipping','$firstName','$lastName','$address','$city','$postCode','$country','$paymentMethod','$totalAmount','$productInfoString')";
-        $result =  mysqli_query ($db_connect,$sql_insert);
+        $sql_insert = "INSERT INTO orders(shipping,firstName, lastName, address, city,postCode,phone,country,payment,total_amount,products ) VALUES ('$shipping','$firstName','$lastName','$address','$city','$postCode','$phone','$country','$paymentMethod','$totalAmount','$productInfoString')";
+        mysqli_query ($db_connect,$sql_insert);
         
         if(mysqli_error($db_connect)){
             die('Table Error:'.mysqli_error($db_connect));
@@ -36,11 +37,56 @@
 		];
 
     }
+    function updateStatus(){
+        $db_connect = db_connect();
+		$update_id = $_POST['update_id'];
+		$orderStatus = mysqli_real_escape_string($db_connect, $_POST['orderStatus']);
+		$error = [];
+		// Validation for title, price, old price, and description
+		if (empty($orderStatus)) {
+			$error['orderStatus'] = 'Order Status Cannot be empty';
+		}
+		if (count($error) > 0) {
+			return [
+				'status' => 'error',
+				'message' => $error,
+			];
+		}
+		// Update query: only include the image field if an image was uploaded
+		$sql_update = "UPDATE orders SET 
+			status='$orderStatus'";
+		$sql_update .= " WHERE id='$update_id'";
+	
+		mysqli_query($db_connect, $sql_update);
+	
+		// Check for SQL errors
+		if (mysqli_error($db_connect)) {
+			die('Table Error: ' . mysqli_error($db_connect));
+		}
+	
+		return [
+			'status' => 'success',
+			'message' => 'Status updated successfully',
+		];
+
+    }
+
     function ordersView(){
         $db_connect = db_connect();
         $sql_view = "SELECT * FROM orders";
         $orderResult = mysqli_query($db_connect,$sql_view);
 
+        if(mysqli_error($db_connect)){
+            die('Table Error:'.mysqli_error($db_connect));
+        }
+        return $orderResult;
+    }
+    function status($phone){
+		
+        $db_connect = db_connect();
+        $sql_view = "SELECT phone, status FROM orders WHERE phone ='$phone'";
+        $orderResult = mysqli_query($db_connect,$sql_view);
+		
         if(mysqli_error($db_connect)){
             die('Table Error:'.mysqli_error($db_connect));
         }

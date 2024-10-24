@@ -138,7 +138,7 @@
         </div>
         <form method="POST"  x-data="{ 
             selectedShipping: 0, 
-            billing: { firstName: '', lastName: '', address: '', city: '', postCode: '', country: '' },
+            billing: { firstName: '', lastName: '', address: '', city: '', postCode: '', phone: '', country: '' },
             paymentMethod: '' ,
             get totalAmount() { 
                 return (this.total + parseFloat(this.selectedShipping)).toFixed(2); 
@@ -235,6 +235,10 @@
                                     <option value="Nepal">Nepal</option>
                                     <option value="Bhutan">Bhutan</option>
                                 </select>
+                            </div>
+                            <div>
+                            <label for="phone" class="block font-semibold mb-2">Phone Number</label>
+                            <input type="text" id="phone" name="phone" x-model="billing.phone" class="w-full border rounded-lg p-2" placeholder="Phone Number">
                             </div>
                         </div>
                     </div>
